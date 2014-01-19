@@ -33,3 +33,5 @@ Icon
 *.sublime-project
 
 node_modules
+src/js
+spec/js
