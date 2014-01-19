@@ -2,6 +2,14 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.initConfig({
+        source: {
+            src: [
+                'src/coffee/*.coffee'
+            ],
+            spec: [
+                'spec/coffee/*.coffee'
+            ]
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -11,13 +19,15 @@ module.exports = function(grunt) {
             ]
         },
         coffee: {
-            compile: {
-                expand: true,
-                flatten: true,
-                cwd: 'src/coffee',
-                src: ['*.coffee'],
-                dest: 'src/js',
-                ext: '.js'
+            src: {
+                files: {
+                    'src/js/tiovivo.js': '<%= source.src %>'
+                }
+            },
+            spec: {
+                files: {
+                    'spec/js/tiovivoSpec.js': '<%= source.spec %>'
+                }
             }
         },
         watch: {
@@ -27,13 +37,21 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['jshint']
             },
-            coffee: {
-                files: [
-                    'src/coffee/**/*.coffee'
-                ],
-                tasks: ['coffee']
+            src: {
+                files: ['<%= source.src %>'],
+                tasks: ['coffee:src'],
+                options: {
+                    livereload: true
+                }
+            },
+            spec: {
+                files: ['<%= source.spec %>'],
+                tasks: ['coffee:spec'],
+                options: {
+                    livereload: true
+                }
             }
-        }
+        },
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
