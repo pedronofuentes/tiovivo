@@ -22,11 +22,17 @@ module.exports = function(grunt) {
             src: {
                 files: {
                     'src/js/tiovivo.js': '<%= source.src %>'
+                },
+                options: {
+                    bare: true
                 }
             },
             spec: {
                 files: {
                     'spec/js/tiovivoSpec.js': '<%= source.spec %>'
+                },
+                options: {
+                    bare: true
                 }
             }
         },
