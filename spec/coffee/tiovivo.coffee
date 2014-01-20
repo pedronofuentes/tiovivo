@@ -23,7 +23,7 @@ describe "Tiovivo class", ->
             expect(tiovivo.$element).toEqual element;
 
         it "gets slide indicators", ->
-            expect(tiovivo.$indicators).toEqual $("#tiovivo .slide-indicators")
+            expect(tiovivo.$indicators).toEqual $("#tiovivo .slide-indicators").children()
 
         it "gets the active item on construct", ->
             expect(tiovivo.$active).toEqual $("#tiovivo .slide-indicators .active")
@@ -84,4 +84,4 @@ describe "Tiovivo class", ->
             expect($("#tiovivo .slide:visible").index()). toEqual tiovivo.$active.index()
             jasmine.clock().tick(5001)
             expect($("#tiovivo .slide:visible").index()). toEqual tiovivo.$active.index()
-            
+
