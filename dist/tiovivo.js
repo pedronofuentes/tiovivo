@@ -1,8 +1,8 @@
-/* tiovivo v0.1.0 - 2014/1/20
+/* tiovivo v0.2.0 - 2014/1/20
    http://github.com/pedronofuentes/tiovivo
    Copyright (c) 2014 Pedro Nofuentes <pedro.nofuentes@gmail.com> - Licensed MIT 
 */
-var Tiovivo,
+var $, Tiovivo,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 Tiovivo = (function() {
@@ -63,3 +63,18 @@ Tiovivo = (function() {
   return Tiovivo;
 
 })();
+
+$ = jQuery;
+
+$.fn.extend({
+  tiovivo: function(options) {
+    return this.each(function() {
+      var $this, data;
+      $this = $(this);
+      data = $this.data('tiovivo');
+      if (!data) {
+        return $this.data('tiovivo', (data = new Tiovivo(this)));
+      }
+    });
+  }
+});
