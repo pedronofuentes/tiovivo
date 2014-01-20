@@ -93,5 +93,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
+    grunt.registerTask('default', ['watch']);
     grunt.registerTask('dist', ['coffee:src', 'concat:dist', 'uglify']);
 };
