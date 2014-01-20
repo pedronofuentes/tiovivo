@@ -123,3 +123,22 @@ describe "Tiovivo class", ->
             $elementToHover.mouseenter()
             expect($("#tiovivo .slide:visible").index()).toEqual $elementToHover.index()
 
+describe "Tiovivo plugin", ->
+    it "should append Tiovivo instance to data", ->
+        loadFixtures 'my-tiovivo.html'
+
+        $tiovivoElement = $("#tiovivo").tiovivo()
+
+        expect($tiovivoElement.data('tiovivo')).toBeDefined()
+        expect($tiovivoElement.data('tiovivo').$element).toEqual $("#tiovivo")
+
+    it "should work with various 'tiovivos'", ->
+        loadFixtures 'tiovivos.html'
+
+        $tiovivoElements = $(".tiovivo").tiovivo()
+
+        $tiovivoElements.each (index) ->
+            $this = $(this)
+            
+            expect($this.data('tiovivo')).toBeDefined()
+            expect($this.data('tiovivo').$element).toEqual $($(".tiovivo").get(index))

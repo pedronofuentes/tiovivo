@@ -46,3 +46,15 @@ class Tiovivo
         @$active.removeClass "active"
         @$active = $(@$indicators.get(index)).addClass "active"
         @hideInactive()
+
+
+$ = jQuery
+
+$.fn.extend
+    tiovivo: (options) ->
+        this.each ->
+            $this = $(this)
+            data = $this.data('tiovivo')
+
+            if not data
+                $this.data 'tiovivo', (data = new Tiovivo this)
