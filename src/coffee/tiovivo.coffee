@@ -12,6 +12,8 @@ class Tiovivo
             @start
         )
 
+        @$indicators.mouseenter @indicatorHovered
+
         @hideInactive()
         @start()
         
@@ -24,9 +26,7 @@ class Tiovivo
             =>
                 current = @$active.index()
                 next = if (current + 1 < @$indicators.size()) then current + 1 else 0
-                @$active.removeClass "active"
-                @$active = $(@$indicators.get(next)).addClass "active"
-                @hideInactive()
+                @setActive next
             , 5000)
 
     stop: =>
@@ -37,3 +37,13 @@ class Tiovivo
     resume: => 
         @pause = false
         @start()
+
+    indicatorHovered: (event) =>
+        $indicator = $(event.currentTarget)
+        index = $indicator.index()
+        @setActive index
+
+    setActive: (index) ->
+        @$active.removeClass "active"
+        @$active = $(@$indicators.get(index)).addClass "active"
+        @hideInactive()

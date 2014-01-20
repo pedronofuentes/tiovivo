@@ -113,3 +113,13 @@ describe "Tiovivo class", ->
             tiovivo.$element.mouseleave()
             jasmine.clock().tick(5001)
             expect($("#tiovivo .slide-indicators .active").index()).toEqual 2
+
+    describe "active hover", ->
+        it "should show related slide when the mouse is over an indicator", ->
+            loadFixtures 'my-tiovivo.html'
+            tiovivo = new Tiovivo $("#tiovivo")
+
+            $elementToHover = $($("#tiovivo .slide-indicators").children().get(2))
+            $elementToHover.mouseenter()
+            expect($("#tiovivo .slide:visible").index()).toEqual $elementToHover.index()
+
