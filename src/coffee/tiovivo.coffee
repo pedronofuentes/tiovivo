@@ -5,6 +5,12 @@ class Tiovivo
         @$active = @$indicators.siblings ".active"
         @$slides = @$element.find ".slide"
         @interval = 
+        @pause = false
+
+        @$element.hover(
+            @stop,
+            @start
+        )
 
         @hideInactive()
         @start()
@@ -13,7 +19,7 @@ class Tiovivo
         @$slides.hide()
         $(@$slides.get(@$active.index())).show()
 
-    start: ->
+    start: =>
         @interval = setInterval(
             =>
                 current = @$active.index()
@@ -22,3 +28,12 @@ class Tiovivo
                 @$active = $(@$indicators.get(next)).addClass "active"
                 @hideInactive()
             , 5000)
+
+    stop: =>
+        console.log "Pausing!!"
+        @pause = true
+        clearInterval(@interval)
+
+    resume: => 
+        @pause = false
+        @start()

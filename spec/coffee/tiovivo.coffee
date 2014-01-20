@@ -85,3 +85,31 @@ describe "Tiovivo class", ->
             jasmine.clock().tick(5001)
             expect($("#tiovivo .slide:visible").index()). toEqual tiovivo.$active.index()
 
+    describe "pause state", ->
+        tiovivo = undefined
+
+        beforeEach ->
+            jasmine.clock().install()
+
+            loadFixtures 'my-tiovivo.html'
+            tiovivo = new Tiovivo $("#tiovivo")
+
+        afterEach ->
+            jasmine.clock().uninstall()
+
+        it "should pase when user puts mouse in the slider", ->
+            expect($("#tiovivo .slide-indicators .active").index()).toEqual 1
+            jasmine.clock().tick(5001)
+            expect($("#tiovivo .slide-indicators .active").index()).toEqual 2
+            tiovivo.$element.mouseenter()
+            jasmine.clock().tick(5001)
+            expect($("#tiovivo .slide-indicators .active").index()).toEqual 2
+
+        it "should resume when mouse leaves the slider", ->
+            tiovivo.$element.mouseenter()
+            jasmine.clock().tick(5001)
+            expect($("#tiovivo .slide-indicators .active").index()).toEqual 1
+
+            tiovivo.$element.mouseleave()
+            jasmine.clock().tick(5001)
+            expect($("#tiovivo .slide-indicators .active").index()).toEqual 2
