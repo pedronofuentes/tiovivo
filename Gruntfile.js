@@ -2,6 +2,13 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        meta: {
+            banner: '/* <%= pkg.name %> v<%= pkg.version %> - <%= grunt.template.today("yyyy/m/d") %>\n' +
+              '   <%= pkg.homepage %>\n' +
+              '   Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>' +
+              ' - Licensed <%= pkg.license %> \n*/\n'
+        },
         source: {
             src: [
                 'src/coffee/*.coffee'
@@ -58,9 +65,33 @@ module.exports = function(grunt) {
                 }
             }
         },
+        concat: {
+            dist: {
+                options: {
+                    banner: '<%= meta.banner %>'
+                },
+                files: {
+                    'dist/tiovivo.js': ['src/js/tiovivo.js']
+                }
+            }
+        },
+        uglify: {
+            dist: {
+                options: {
+                    banner: '<%= meta.banner %>'
+                },
+                files: {
+                    'dist/tiovivo.min.js': ['src/js/tiovivo.js']
+                }
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+
+    grunt.registerTask('dist', ['coffee:src', 'concat:dist', 'uglify']);
 };
