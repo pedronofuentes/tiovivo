@@ -30,7 +30,6 @@ class Tiovivo
             , 5000)
 
     stop: =>
-        console.log "Pausing!!"
         @pause = true
         clearInterval(@interval)
 
