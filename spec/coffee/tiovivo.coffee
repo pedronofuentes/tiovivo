@@ -142,3 +142,27 @@ describe "Tiovivo plugin", ->
             
             expect($this.data('tiovivo')).toBeDefined()
             expect($this.data('tiovivo').$element).toEqual $($(".tiovivo").get(index))
+
+    describe "data attributes API", ->
+        it "should initialize components indicated with data attributes", ->
+            loadFixtures 'my-tiovivo-data-attribute.html'
+
+            loadTiovivos()
+
+            $tiovivoElement = $("#tiovivo");
+
+            expect($tiovivoElement.data('tiovivo')).toBeDefined()
+            expect($tiovivoElement.data('tiovivo').$element).toEqual $("#tiovivo")
+
+        it "should work with various 'tiovivos'", ->
+            loadFixtures 'tiovivos-data-attribute.html'
+
+            loadTiovivos()
+
+            $tiovivoElements = $(".tiovivo");
+
+            $tiovivoElements.each (index) ->
+                $this = $(this)
+                
+                expect($this.data('tiovivo')).toBeDefined()
+                expect($this.data('tiovivo').$element).toEqual $($(".tiovivo").get(index))

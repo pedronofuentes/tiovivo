@@ -58,3 +58,11 @@ $.fn.extend
 
             if not data
                 $this.data 'tiovivo', (data = new Tiovivo this)
+
+
+loadTiovivos = ->
+    $('[data-component="tiovivo"]').each ->
+        $(this).tiovivo()
+
+$ ->
+    loadTiovivos()
