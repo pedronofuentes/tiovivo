@@ -1,4 +1,4 @@
-/* tiovivo v0.3.0 - 2014/1/25
+/* tiovivo v0.4.0 - 2014/2/13
    http://github.com/pedronofuentes/tiovivo
    Copyright (c) 2014 Pedro Nofuentes <pedro.nofuentes@gmail.com> - Licensed MIT 
 */
@@ -18,13 +18,13 @@ Tiovivo = (function() {
     this.interval = this.pause = false;
     this.$element.hover(this.stop, this.start);
     this.$indicators.mouseenter(this.indicatorHovered);
-    this.hideInactive();
+    this.setSlideActive();
     this.start();
   }
 
-  Tiovivo.prototype.hideInactive = function() {
-    this.$slides.hide();
-    return $(this.$slides.get(this.$active.index())).show();
+  Tiovivo.prototype.setSlideActive = function() {
+    this.$slides.removeClass('active');
+    return $(this.$slides.get(this.$active.index())).addClass('active');
   };
 
   Tiovivo.prototype.start = function() {
@@ -57,7 +57,7 @@ Tiovivo = (function() {
   Tiovivo.prototype.setActive = function(index) {
     this.$active.removeClass("active");
     this.$active = $(this.$indicators.get(index)).addClass("active");
-    return this.hideInactive();
+    return this.setSlideActive();
   };
 
   return Tiovivo;
