@@ -13,13 +13,13 @@ class Tiovivo
         )
 
         @$indicators.mouseenter @indicatorHovered
+        @setSlideActive()
 
-        @hideInactive()
         @start()
         
-    hideInactive: ->
-        @$slides.hide()
-        $(@$slides.get(@$active.index())).show()
+    setSlideActive: ->
+        @$slides.removeClass('active')
+        $(@$slides.get(@$active.index())).addClass('active')
 
     start: =>
         @interval = setInterval(
@@ -45,7 +45,7 @@ class Tiovivo
     setActive: (index) ->
         @$active.removeClass "active"
         @$active = $(@$indicators.get(index)).addClass "active"
-        @hideInactive()
+        @setSlideActive()
 
 
 $ = jQuery

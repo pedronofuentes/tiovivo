@@ -31,9 +31,9 @@ describe "Tiovivo class", ->
         it "gets slides on construct", ->
             expect(tiovivo.$slides).toEqual $("#tiovivo .slide")
 
-        it "hides slides not indicated as active", ->
-            expect($("#tiovivo .slide:hidden").size()).toEqual 2
-
+        it "sets 'active' the related slide of the active indicator", ->
+            expect(tiovivo.$slides.filter('.active').index()).toEqual $("#tiovivo .slide-indicators .active").index()
+        
     describe "cycle", ->
         beforeEach ->
             jasmine.clock().install()
@@ -77,13 +77,13 @@ describe "Tiovivo class", ->
             jasmine.clock().tick(5001)
             expect($("#tiovivo .slide-indicators .active").index()).toEqual 0
 
-        it "should show the corresponding slide", ->
+        it "sets 'active' the corresponding slide", ->
             loadFixtures 'my-tiovivo-active-first.html'
             tiovivo = new Tiovivo $("#tiovivo")
 
-            expect($("#tiovivo .slide:visible").index()). toEqual tiovivo.$active.index()
+            expect($("#tiovivo .slide.active").index()). toEqual tiovivo.$active.index()
             jasmine.clock().tick(5001)
-            expect($("#tiovivo .slide:visible").index()). toEqual tiovivo.$active.index()
+            expect($("#tiovivo .slide.active").index()). toEqual tiovivo.$active.index()
 
     describe "pause state", ->
         tiovivo = undefined
@@ -115,13 +115,13 @@ describe "Tiovivo class", ->
             expect($("#tiovivo .slide-indicators .active").index()).toEqual 2
 
     describe "active hover", ->
-        it "should show related slide when the mouse is over an indicator", ->
+        it "should set as 'active' related slide when the mouse is over an indicator", ->
             loadFixtures 'my-tiovivo.html'
             tiovivo = new Tiovivo $("#tiovivo")
 
             $elementToHover = $($("#tiovivo .slide-indicators").children().get(2))
             $elementToHover.mouseenter()
-            expect($("#tiovivo .slide:visible").index()).toEqual $elementToHover.index()
+            expect($("#tiovivo .slide.active").index()).toEqual $elementToHover.index()
 
 describe "Tiovivo plugin", ->
     it "should append Tiovivo instance to data", ->
